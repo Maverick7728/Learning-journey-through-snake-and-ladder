@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MK's Snake & Ladder Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    canvas {
+      border: 2px solid #fff;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #0ff;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲 MK's Snake & Ladder Journey</h1>
+  <canvas id="board" width="500" height="500"></canvas>
+  <button id="rollBtn">Roll Dice 🎲</button>
+
+  <script>
+    const canvas = document.getElementById("board");
+    const ctx = canvas.getContext("2d");
+    const rollBtn = document.getElementById("rollBtn");
+
+    const rows = 10;
+    const cols = 10;
+    const size = 50;
+    const totalSquares = rows * cols;
+
+    const player = {
+      position: 1,
+      x: 0,
+      y: 450,
+      color: "#00f",
+    };
+
+    const snakes = {
+      16: 6,
+      48: 26,
+      62: 18,
+      97: 78,
+    };
+
+    const ladders = {
+      3: 22,
+      5: 8,
+      20: 29,
+      57: 76,
+    };
+
+    const langIcons = [
+      "C", "C++", "Java", "Python", "JS", "HTML", "CSS", "React", "Flask", "SQL",
+      "Firebase", "Git", "GitHub", "FastAPI", "Node", "VSCode", "Xcode", "R", "Bootstrap"
+    ];
+
+    function drawBoard() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let x = 0;
+      let y = 450;
+      let number = 1;
+      let direction = 1;
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          ctx.fillStyle = "#222";
+          ctx.fillRect(x, y, size, size);
+          ctx.strokeStyle = "#444";
+          ctx.strokeRect(x, y, size, size);
+
+          ctx.fillStyle = "#fff";
+          ctx.font = "10px Arial";
+          ctx.fillText(number, x + 2, y + 10);
+
+          if (number <= langIcons.length) {
+            ctx.fillStyle = "#0ff";
+            ctx.fillText(langIcons[number - 1], x + 5, y + 30);
+          }
+
+          number++;
+          x += size * direction;
+        }
+        direction *= -1;
+        x += size * direction;
+        y -= size;
+      }
+    }
+
+    function drawPlayer() {
+      let pos = player.position;
+      let row = Math.floor((pos - 1) / cols);
+      let col = (pos - 1) % cols;
+      if (row % 2 === 1) col = cols - 1 - col;
+
+      player.x = col * size + size / 2;
+      player.y = (rows - 1 - row) * size + size / 2;
+
+      ctx.beginPath();
+      ctx.arc(player.x, player.y, 10, 0, Math.PI * 2);
+      ctx.fillStyle = player.color;
+      ctx.fill();
+      ctx.closePath();
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 10px Arial";
+      ctx.fillText("MK", player.x - 10, player.y - 15);
+    }
+
+    function rollDice() {
+      if (player.position >= 100) return;
+      let steps = Math.floor(Math.random() * 6) + 1;
+      let interval = setInterval(() => {
+        if (steps > 0 && player.position < 100) {
+          player.position++;
+          drawBoard();
+          drawPlayer();
+          steps--;
+        } else {
+          clearInterval(interval);
+          if (snakes[player.position]) {
+            player.position = snakes[player.position];
+          } else if (ladders[player.position]) {
+            player.position = ladders[player.position];
+          }
+          drawBoard();
+          drawPlayer();
+        }
+      }, 300);
+    }
+
+    drawBoard();
+    drawPlayer();
+
+    rollBtn.addEventListener("click", rollDice);
+  </script>
+</body>
+</html>
