@@ -65,9 +65,19 @@ h1::after {
     border-radius: 2px;
 }
 
+.subtitle {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
 .game-container {
     position: relative;
     margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
 }
 
 .status-panel {
@@ -167,6 +177,70 @@ h1::after {
     height: 12px;
     border-radius: 50%;
     background-color: #333;
+}
+
+/* Real dice styling */
+.real-dice-container {
+    background: #1a1a2e;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    /* Add margin-top to push dice down */
+    margin-top: 70px;
+}
+
+.real-dice {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.real-dice-value {
+    font-size: 40px;
+    font-weight: bold;
+    color: #222;
+}
+
+.dice-history {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.dice-history-title {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.history-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.history-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #666;
+    transition: all 0.3s;
+}
+
+.history-dot.active {
+    background-color: #ff416c;
+    transform: scale(1.2);
 }
 
 /* Media queries for responsiveness */

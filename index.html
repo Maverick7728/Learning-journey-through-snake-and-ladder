@@ -11,17 +11,26 @@
 <body>
     <div class="game-wrapper">
         <header>
-            <h1>🎮 MK's Snake & Ladder Journey</h1>
+            <h1>🎮 MK's Snake & Ladder Development Journey</h1>
+            <p class="subtitle">Featuring AI & Programming Languages</p>
         </header>
 
         <div class="game-container">
-            <div id="gameStatus" class="status-panel">Position: 1</div>
-            <canvas id="board" width="800" height="800"></canvas>
+            <canvas id="board" width="600" height="600"></canvas>
 
-            <div class="dice-container">
-                <div id="dice" class="dice">
-                    <div class="dice-face">
-                        <span class="dot"></span>
+            <div class="real-dice-container">
+                <div id="gameStatus" class="status-panel">Position: 1</div>
+                <div class="real-dice">
+                    <span id="diceValue" class="real-dice-value">1</span>
+                </div>
+                <div class="dice-history">
+                    <p class="dice-history-title">Last Rolls</p>
+                    <div class="history-dots" id="historyDots">
+                        <span class="history-dot"></span>
+                        <span class="history-dot"></span>
+                        <span class="history-dot"></span>
+                        <span class="history-dot"></span>
+                        <span class="history-dot"></span>
                     </div>
                 </div>
             </div>
